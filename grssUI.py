@@ -72,7 +72,7 @@ app.layout = html.Div(children=[
     Input('interval-component', 'n_intervals')
 )
 def update_alt_graph(n):
-    df = pd.read_csv('decoded_gps_data2.txt',sep =',', names=['time', 'lat', 'long', 'stat', 'alt', 'temp', 'humid'], index_col=False)
+    df = pd.read_csv('decoded_gps_data.txt',sep =',', names=['time', 'lat', 'long', 'stat', 'alt', 'temp', 'humid'], index_col=False)
 
     fig = px.line_3d(df, x="lat", y="long", z="alt" , markers = True, text = "time")
     altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True)
