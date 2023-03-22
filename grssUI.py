@@ -4,10 +4,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-app_color = {"graph_bg": "#082255", "graph_line": "#007ACE"}
-
-app = Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],external_stylesheets=[dbc.themes.SLATE])
-# app = Dash(__name__)
+app = Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 
 app.layout = html.Div([
     dbc.Card(
@@ -73,6 +70,7 @@ def update_alt_graph(n):
                                    zaxis = dict(nticks=10, range=[0,300])),
                         uirevision='constant',
                         height=450, width=450,)
+    
     altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=600, width=800, range_y=(10,130000))
     altitude_graph.update_layout(uirevision='constant')
 
@@ -90,6 +88,7 @@ def update_alt_graph(n):
     
     temperature_graph = px.line(df, x="time", y="temp", title="Temperature test", markers=True, height=350, width=700)
     temperature_graph.update_layout(uirevision='constant')
+
     humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=350, width=700)
     humidity_graph.update_layout(uirevision='constant')
 
