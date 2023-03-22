@@ -69,12 +69,14 @@ def update_alt_graph(n):
                                    yaxis = dict(nticks=10, range=[-1000,8000]),
                                    zaxis = dict(nticks=10, range=[0,300])),
                         uirevision='constant',
-                        height=450, width=450,)
+                        height=350, width=350,)
+    # st.plotly_chart(fig, use_container_width=True)
+
     
-    altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=600, width=800, range_y=(10,130000))
+    altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=400, width=600, range_y=(10,130000))
     altitude_graph.update_layout(uirevision='constant')
 
-    gpsgraph = px.line_mapbox(df, lat="lat", lon="long", zoom=2, height=600, width=600)
+    gpsgraph = px.line_mapbox(df, lat="lat", lon="long", zoom=2, height=400, width=470)
     gpsgraph.update_layout(mapbox_style="open-street-map", 
                            mapbox_zoom=2, 
                            mapbox_center_lat = 43, 
@@ -86,10 +88,10 @@ def update_alt_graph(n):
                            margin={"r":0,"t":0,"l":0,"b":0},
                            uirevision='constant')
     
-    temperature_graph = px.line(df, x="time", y="temp", title="Temperature test", markers=True, height=350, width=700)
+    temperature_graph = px.line(df, x="time", y="temp", title="Temperature test", markers=True, height=250, width=500)
     temperature_graph.update_layout(uirevision='constant')
 
-    humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=350, width=700)
+    humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=250, width=500)
     humidity_graph.update_layout(uirevision='constant')
 
     return fig, altitude_graph, temperature_graph, humidity_graph, gpsgraph
