@@ -41,7 +41,16 @@ app.layout = html.Div([
                         id='humid',
                     ), 
                 ], width=4),
-            ], align='center'),    
+            ], align='center'),   
+            
+            html.Br(),
+            dbc.Row([
+                dbc.Col([
+                    html.Img(
+                        id='pics',
+                    ),
+                ], width=4),
+            ], align='center'),
         ]), color = 'dark',
     ),
 
@@ -70,6 +79,7 @@ def update_alt_graph(n):
                                    zaxis = dict(nticks=10, range=[0,300])),
                         uirevision='constant',
                         height=350, width=350,)
+    # st.plotly_chart(fig, use_container_width=True)
 
     
     altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=400, width=600, range_y=(10,130000))
@@ -94,6 +104,15 @@ def update_alt_graph(n):
     humidity_graph.update_layout(uirevision='constant')
 
     return fig, altitude_graph, temperature_graph, humidity_graph, gpsgraph
+
+
+@app.callback(
+    Output('pics', 'children'),
+    Input('interval-component', 'n_intervals')
+)
+def display_photo(n):
+    src=app.get_asset_url("7182987.jpg")
+    return src
 
 
 if __name__ == '__main__':
