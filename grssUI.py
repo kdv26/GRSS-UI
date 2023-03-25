@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+from filewriter import writeOne
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 
@@ -51,12 +52,13 @@ app.layout = html.Div([
                     ),
                 ], width=4),
             ], align='center'),
+
         ]), color = 'dark',
     ),
 
     dcc.Interval(
             id='interval-component',
-            interval=1*1000, # in milliseconds
+            interval=1*1000, # 1 sec intervals
             n_intervals=0,
     ),
 
@@ -68,22 +70,24 @@ app.layout = html.Div([
     Output('temp', 'figure'),
     Output('humid', 'figure'),
     Output('gps', 'figure'),
+    Output('pics', 'src'),
     Input('interval-component', 'n_intervals')
 )
 def update_alt_graph(n):
     df = pd.read_csv('decoded_gps_data.txt',sep =',', names=['time', 'lat', 'long', 'stat', 'alt', 'temp', 'humid'], index_col=False)
 
     fig = px.line_3d(df, x="lat", y="long", z="alt" , markers = True, text = "time")    
-    fig.update_layout(scene = dict(xaxis = dict(nticks=10, range=[-1000,8000]),
-                                   yaxis = dict(nticks=10, range=[-1000,8000]),
-                                   zaxis = dict(nticks=10, range=[0,300])),
+    fig.update_layout(scene = dict(xaxis = dict(nticks=5, range=[35,45]),
+                                   yaxis = dict(nticks=5, range=[-90,-60]),
+                                   zaxis = dict(nticks=10, range=[10,130000])),
                         uirevision='constant',
+                        margin={"r":0,"t":0,"l":0,"b":0},
                         height=350, width=350,)
     # st.plotly_chart(fig, use_container_width=True)
 
     
     altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=400, width=600, range_y=(10,130000))
-    altitude_graph.update_layout(uirevision='constant')
+    altitude_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
 
     gpsgraph = px.line_mapbox(df, lat="lat", lon="long", zoom=2, height=400, width=470)
     gpsgraph.update_layout(mapbox_style="open-street-map", 
@@ -91,29 +95,21 @@ def update_alt_graph(n):
                            mapbox_center_lat = 43, 
                            mapbox_center_lon = -75, 
                            mapbox_bounds_east=-69,
+                           mapbox_bounds_west=-81,
                            mapbox_bounds_north=46,
                            mapbox_bounds_south=38,
-                           mapbox_bounds_west=-81,
                            margin={"r":0,"t":0,"l":0,"b":0},
                            uirevision='constant')
     
     temperature_graph = px.line(df, x="time", y="temp", title="Temperature test", markers=True, height=250, width=500)
-    temperature_graph.update_layout(uirevision='constant')
+    temperature_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
 
     humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=250, width=500)
-    humidity_graph.update_layout(uirevision='constant')
+    humidity_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
+  
+    writeOne(n)
 
-    return fig, altitude_graph, temperature_graph, humidity_graph, gpsgraph
-
-
-@app.callback(
-    Output('pics', 'children'),
-    Input('interval-component', 'n_intervals')
-)
-def display_photo(n):
-    src=app.get_asset_url("7182987.jpg")
-    return src
-
+    return fig, altitude_graph, temperature_graph, humidity_graph, gpsgraph, app.get_asset_url(str(n) + '.jpg')
 
 if __name__ == '__main__':
     app.run_server(debug=True)
