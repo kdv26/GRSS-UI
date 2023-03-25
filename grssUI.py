@@ -107,8 +107,6 @@ def update_alt_graph(n):
     humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=250, width=500)
     humidity_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
   
-    writeOne(n)
-
     return fig, altitude_graph, temperature_graph, humidity_graph, gpsgraph, app.get_asset_url(str(n) + '.jpg')
 
 if __name__ == '__main__':
