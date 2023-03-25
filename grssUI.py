@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-from filewriter import writeOne
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 
