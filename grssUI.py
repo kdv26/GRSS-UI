@@ -70,7 +70,6 @@ def update_alt_graph(n):
                                    zaxis = dict(nticks=10, range=[0,300])),
                         uirevision='constant',
                         height=350, width=350,)
-    # st.plotly_chart(fig, use_container_width=True)
 
     
     altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=400, width=600, range_y=(10,130000))
