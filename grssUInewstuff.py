@@ -44,7 +44,7 @@ app.layout = html.Div([
                             ),
                     
                         ], 
-                        className = "graph__container first",
+                        className = "wind__speed__container first",
                     ),
 
                     html.Div(
@@ -57,10 +57,10 @@ app.layout = html.Div([
                                 id='gps',
                             ),
                         ], 
-                        className = "graph__container second",
+                        className = "wind__speed__container second",
                     ), 
                 ],
-                className = "one-third column histogram__direction",
+                className = "one-third column",
             ),
 
             html.Div(
@@ -269,7 +269,10 @@ def update_alt_graph(n):
                                    zaxis = dict(nticks=10, range=[10,20000])),
                         uirevision='constant',
                         margin={"r":0.8,"t":0.4,"l":0.8,"b":0.4},
-                        height=400, width=550,)    
+                        height=400,
+                        paper_bgcolor = "#8EA9A9",
+                        plot_bgcolor = "#8EA9A9",
+                        font_color = "#ffffff")    
     # '''
 
     '''
@@ -287,11 +290,15 @@ def update_alt_graph(n):
 
     # st.plotly_chart(fig, use_container_width=True)
 
-    altitude_graph = px.line(df, x="time", y="alt", title="Altitude test", markers=True, height=250, width=500, range_y=(10,20000))
-    altitude_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
+    altitude_graph = px.line(df, x="time", y="alt", markers=True, height=250, range_y=(10,20000))
+    altitude_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant',
+                                 paper_bgcolor = "#8EA9A9",
+                                 plot_bgcolor = "#8EA9A9",
+                                 font_color = "#ffffff")
+    altitude_graph.update_traces(line_color = "#745C97")
 
     # gpsgraph = px.line_mapbox(df, lat="lat", lon="long")
-    gpsgraph = px.line_mapbox(df, lat="lat", lon="long", zoom=2, height=400, width=550)
+    gpsgraph = px.line_mapbox(df, lat="lat", lon="long", zoom=2, height=400)
     gpsgraph.update_layout(mapbox_style="open-street-map", 
                            mapbox_zoom=2, 
                            mapbox_center_lat = 43, 
@@ -305,11 +312,19 @@ def update_alt_graph(n):
     
     altvertvalue = df['alt'].tail(n=1)
     
-    temperature_graph = px.line(df, x="time", y="temp", markers=True, height=250, width=500)
-    temperature_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
+    temperature_graph = px.line(df, x="time", y="temp", markers=True, height=250)
+    temperature_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant', 
+                                    paper_bgcolor = "#8EA9A9",
+                                    plot_bgcolor = "#8EA9A9",
+                                    font_color = "#ffffff")
+    temperature_graph.update_traces(line_color = "#745C97")
 
-    humidity_graph = px.line(df, x="time", y="humid", title="Humidity test", markers=True, height=250, width=500)
-    humidity_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant')
+    humidity_graph = px.line(df, x="time", y="humid", markers=True, height=250)
+    humidity_graph.update_layout(margin={"r":40,"t":50,"l":0,"b":0}, uirevision='constant',
+                                 paper_bgcolor = "#8EA9A9",
+                                    plot_bgcolor = "#8EA9A9",
+                                    font_color = "#ffffff")
+    humidity_graph.update_traces(line_color = "#745C97")
 
     # writeOne(n)
 
