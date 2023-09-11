@@ -1,7 +1,7 @@
 body {
     font-family: "Open Sans", sans-serif;
-    /* background-color: #061E44; */
-    background-image: url("space4.jpeg");
+    background-color: #011627;
+    /* background-image: url("space4.jpeg"); */
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -36,19 +36,15 @@ h6 {
 .wind__speed__container {
     display: flex;
     flex-direction: column;
-    /* background-color: #082255; */
+    background-color: #8EA9A9;
     border-radius: 0.55rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .graph__container {
-    background-color: #393a3b;
+    background-color: #8EA9A9;
     border-radius: 0.55rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
 }
 
 .first {
@@ -66,7 +62,7 @@ h6 {
 .linegraph3d__container {
     display: flex;
     flex-direction: column;
-    background-color: #393a3b;
+    background-color: #8EA9A9;
     /* background-color: rgba(106, 109, 122, 0.5); */
     border-radius: 0.55rem;
     margin-bottom: 20px;
@@ -87,7 +83,7 @@ h6 {
 .linegraph2d__container {
     display: flex;
     flex-direction: column;
-    background-color: #393a3b;
+    background-color: #8EA9A9;
     /* background-color: rgba(106, 109, 122, 0.5); */
     border-radius: 0.55rem;
     margin-bottom: 20px;
@@ -102,7 +98,7 @@ h6 {
     letter-spacing: 0.3rem !important;
     padding: 25px 25px 0px 25px;
     margin-bottom: 0px !important;
-    font-size: 1em;
+    font-size: 1.05em;
 }
 
 .auto__checkbox {
@@ -127,6 +123,10 @@ h6 {
 #wind-direction {
     display: flex;
     justify-content: center;
+}
+
+#altverty {
+    color: #f3f6fa !important;
 }
 
 @media only screen and (max-width: 600px) {
