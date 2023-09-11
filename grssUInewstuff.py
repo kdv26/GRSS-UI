@@ -2,9 +2,9 @@ from dash import Dash, html, dcc
 import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
-import dash_bootstrap_components as dbc
+# import dash_bootstrap_components as dbc
 # from filewriter import writeOne
-import json
+# import json
 import numpy as np
 import plotly.graph_objects as go
 import urllib.request
@@ -115,18 +115,25 @@ app.layout = html.Div([
                             html.Div(
                                 [html.H6("Altitude", className = "graph__title",)]
                             ), 
-                        
-                            daq.Tank(
-                                id="altvert",
-                                label="Vertical Altitude",
-                                min=0,
-                                max=20000,
-                                value=0,
-                                units="kilometers",
-                                height = 800,
-                                showCurrentValue=True,
-                                # color="#303030",
-                            )
+
+                            html.Div(
+                                id="altverty",
+                                children = [
+                                    daq.Tank(
+                                        id="altvert",
+                                        label="Vertical Altitude",
+                                        min=0,
+                                        max=20000,
+                                        value=0,
+                                        units="kilometers",
+                                        height = 800,
+                                        showCurrentValue=True,
+                                        color ="#745C97",
+                                        # color="#303030",
+                                    )
+                                ]
+                            ),
+                            
                         ], 
                         className = "graph__container",
                     ),
@@ -272,7 +279,8 @@ def update_alt_graph(n):
                         height=400,
                         paper_bgcolor = "#8EA9A9",
                         plot_bgcolor = "#8EA9A9",
-                        font_color = "#ffffff")    
+                        font_color = "#ffffff")
+    fig.update_traces(line_color = "#745C97")
     # '''
 
     '''
@@ -309,6 +317,7 @@ def update_alt_graph(n):
                            mapbox_bounds_south=38,
                            margin={"r":0,"t":0,"l":0,"b":0},
                            uirevision='constant')
+    gpsgraph.update_traces(line_color = "#745C97")
     
     altvertvalue = df['alt'].tail(n=1)
     
