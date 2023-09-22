@@ -153,67 +153,6 @@ app.layout = html.Div([
 className="app__container",
 )
 
-'''
-    dbc.Card(
-        dbc.CardBody([
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(
-                        id='3dline',
-                    ),
-                ], width=3),
-                dbc.Col([
-                    dcc.Graph(
-                         id='gps',
-                        # config={'staticPlot': True},
-                    ), 
-                ], width=4),
-                dbc.Col([
-                    dcc.Graph(
-                        id='altie',
-                    ),
-                ], width=4),
-            ], align='center'), 
-
-            html.Br(),
-
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(
-                        id='temp',
-                    ),
-                ], width=4),
-                dbc.Col([
-                    dcc.Graph(
-                        id='humid',
-                    ), 
-                ], width=4),
-            ], align='center'),   
-            
-            html.Br(),
-            dbc.Row([
-                # dbc.Col([
-                #     html.Img(
-                #         id='pics',
-                #     ),
-                # ], width=8),
-                dbc.Col([
-                    dcc.Graph(
-                        id='altvert',
-                    ), 
-                ], width=3),
-            ], align='center'),
-
-        ]), color = 'dark',
-    ),
-
-        dcc.Interval(
-            id='interval-component',
-            interval=1*1000, # 1 sec intervals
-            n_intervals=0,
-    ),
-'''
-
 @app.callback(
     Output('3dline', 'figure'),
     Output('altie', 'figure'),
@@ -262,14 +201,11 @@ def update_alt_graph(n):
     converted_longs = long_degrees.astype("float") + long_min_to_degrees
     df["long"] = (converted_longs * -1)
     '''
-
-    # '''
+           
     df = pd.read_csv('decoded_gps_data.txt', sep = ',', 
                      names=['time', 'lat', 'long', 'stat', 'alt', 'temp', 'humid'], 
                      index_col=False)
-    # '''
 
-    # '''
     fig = px.line_3d(df, x="lat", y="long", z="alt" , markers = True, text = "time")    
     fig.update_layout(scene = dict(xaxis = dict(nticks=5, range=[35,45]),
                                    yaxis = dict(nticks=5, range=[-90,-60]),
@@ -281,7 +217,6 @@ def update_alt_graph(n):
                         plot_bgcolor = "#8EA9A9",
                         font_color = "#ffffff")
     fig.update_traces(line_color = "#745C97")
-    # '''
 
     '''
     fig = go.Figure()
